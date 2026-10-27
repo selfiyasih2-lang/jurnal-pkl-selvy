@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jurnal PKL RPL - SMKN 2 Cipatujah</title>
+<style>
+:root{--navy:#0b2545;--navy2:#13315c;--blue:#2f6fb5;--sky:#dbeafe;--sky2:#eef5ff;--line:#cfe0f5;--text:#14243b;--muted:#5b6b82;--danger:#c0392b;--ok:#1e8e5a;--r:14px}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--sky2);color:var(--text);line-height:1.55}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:28px 0 56px}
+header h1{margin:0 0 6px;font-size:clamp(1.5rem,5vw,2.3rem);letter-spacing:-.5px}
+header p{margin:0;color:#b9d3f5;max-width:60ch}
+main{margin-top:-36px;padding-bottom:40px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:0 6px 20px rgba(11,37,69,.07)}
+.card h2{margin:0 0 12px;font-size:1.15rem;color:var(--navy)}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:1fr}
+@media(min-width:640px){.g2{grid-template-columns:1fr 1fr}.span2{grid-column:1/-1}}
+label{display:block;font-weight:600;font-size:.9rem;margin-bottom:4px;color:var(--navy2)}
+input,textarea{width:100%;font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+textarea{min-height:88px;resize:vertical}
+input:focus,textarea:focus,button:focus-visible{outline:3px solid #9cc4f2;border-color:var(--blue)}
+.err{color:var(--danger);font-size:.82rem;min-height:1em;margin-top:2px}
+.invalid{border-color:var(--danger)}
+.btn{font:inherit;font-weight:600;border:0;border-radius:10px;padding:11px 18px;cursor:pointer;background:var(--navy);color:#fff}
+.btn:hover{background:var(--navy2)}
+.btn.light{background:var(--sky);color:var(--navy)}
+.btn.light:hover{background:#c8dcfb}
+.btn.danger{background:var(--danger)}
+.btn.sm{padding:7px 12px;font-size:.88rem}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--sky2);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.stat b{display:block;font-size:1.6rem;color:var(--navy)}
+.stat span{font-size:.8rem;color:var(--muted)}
+.tools{display:grid;gap:10px;grid-template-columns:1fr}
+@media(min-width:640px){.tools{grid-template-columns:2fr 1fr 1fr auto}}
+.entry{border:1px solid var(--line);border-left:6px solid var(--blue);border-radius:12px;padding:14px;margin-bottom:12px;background:#fff;break-inside:avoid}
+.entry h3{margin:0;font-size:1rem;color:var(--navy)}
+.meta{color:var(--muted);font-size:.85rem;margin-bottom:8px}
+.entry dt{font-weight:700;font-size:.82rem;color:var(--blue);margin-top:8px}
+.entry dd{margin:2px 0 0;white-space:pre-wrap}
+.actions{margin-top:12px;display:flex;gap:8px}
+.empty{text-align:center;color:var(--muted);padding:26px 10px}
+.overlay{position:fixed;inset:0;background:rgba(11,37,69,.55);display:none;align-items:flex-start;justify-content:center;padding:16px;overflow:auto;z-index:20}
+.overlay.show{display:flex}
+.modal{background:#fff;border-radius:16px;padding:20px;width:100%;max-width:640px;margin:auto}
+.modal.small{max-width:400px}
+.modal h2{margin-top:0;color:var(--navy)}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 20px;border-radius:30px;opacity:0;pointer-events:none;transition:.25s;z-index:30;max-width:90%;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%)}
+#toast.bad{background:var(--danger)}
+.print-only{display:none}
+footer{text-align:center;color:var(--muted);font-size:.82rem;padding:10px 0 30px}
+@media print{
+ body{background:#fff;color:#000;font-size:11pt}
+ header{background:none;color:#000;padding:0 0 8px;border-bottom:2px solid #000}
+ header p,.no-print,footer{display:none!important}
+ main{margin:10px 0 0}
+ .card{box-shadow:none;border:0;padding:0}
+ .print-only{display:block}
+ .entry{border:1px solid #888;border-left:4px solid #000}
+ table.idt td{padding:2px 10px 2px 0;vertical-align:top}
+ .sign{display:flex;justify-content:space-between;margin-top:40px;text-align:center}
+ .sign div{width:40%}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap">
+  <h1>Jurnal PKL RPL</h1>
+  <p>SMKN 2 Cipatujah. Catat kegiatan Praktik Kerja Lapangan setiap hari dengan rapi.</p>
+ </div>
+</header>
+
+<main class="wrap">
+ <section class="card" id="identitasCard">
+  <h2>Identitas PKL</h2>
+  <form id="formIdentitas" class="grid g2 no-print" novalidate>
+   <div><label for="nama">Nama siswa</label><input id="nama" autocomplete="off"><div class="err" data-for="nama"></div></div>
+   <div><label for="kelas">Kelas</label><input id="kelas" autocomplete="off"><div class="err" data-for="kelas"></div></div>
+   <div><label for="instansi">Nama instansi PKL</label><input id="instansi" autocomplete="off"><div class="err" data-for="instansi"></div></div>
+   <div><label for="pembimbing">Nama pembimbing</label><input id="pembimbing" autocomplete="off"><div class="err" data-for="pembimbing"></div></div>
+   <div class="span2"><label for="periode">Periode PKL</label><input id="periode" placeholder="Contoh: 1 Juli 2026 - 30 September 2026" autocomplete="off"><div class="err" data-for="periode"></div></div>
+   <div class="span2"><button class="btn" type="submit">Simpan identitas</button></div>
+  </form>
+  <table class="idt print-only" id="idPrint"></table>
+ </section>
+
+ <section class="card">
+  <h2>Rekap jurnal</h2>
+  <div class="stats">
+   <div class="stat"><b id="sTotal">0</b><span>Jurnal dibuat</span></div>
+   <div class="stat"><b id="sHari">0</b><span>Hari tercatat</span></div>
+   <div class="stat"><b id="sJam">0</b><span>Total jam</span></div>
+  </div>
+ </section>
+
+ <section class="card">
+  <div class="row no-print" style="justify-content:space-between;margin-bottom:12px">
+   <h2 style="margin:0">Daftar jurnal</h2>
+   <div class="row">
+    <button class="btn" id="btnTambah" type="button">+ Tambah jurnal</button>
+    <button class="btn light" id="btnCetak" type="button">Cetak / Simpan PDF</button>
+   </div>
+  </div>
+  <div class="tools no-print">
+   <input id="cari" type="search" placeholder="Cari kegiatan, hasil, kendala..." aria-label="Cari jurnal">
+   <input id="dari" type="date" aria-label="Dari tanggal" title="Dari tanggal">
+   <input id="sampai" type="date" aria-label="Sampai tanggal" title="Sampai tanggal">
+   <button class="btn light" id="btnReset" type="button">Reset</button>
+  </div>
+  <p class="meta no-print" id="info" style="margin:10px 0"></p>
+  <div id="daftar"></div>
+  <div class="print-only sign">
+   <div>Pembimbing Instansi<br><br><br><br>( ........................ )</div>
+   <div>Siswa<br><br><br><br>( ........................ )</div>
+  </div>
+ </section>
+</main>
+<footer>Data tersimpan di browser ini (localStorage). Data contoh bersifat fiktif.</footer>
+
+<div class="overlay" id="ovForm">
+ <div class="modal">
+  <h2 id="judulForm">Tambah jurnal</h2>
+  <form id="formJurnal" class="grid g2" novalidate>
+   <div><label for="tgl">Tanggal</label><input type="date" id="tgl"><div class="err" data-for="tgl"></div></div>
+   <div class="grid g2" style="gap:8px">
+    <div><label for="jm">Jam mulai</label><input type="time" id="jm"><div class="err" data-for="jm"></div></div>
+    <div><label for="js">Jam selesai</label><input type="time" id="js"><div class="err" data-for="js"></div></div>
+   </div>
+   <div class="span2"><label for="uraian">Uraian pekerjaan</label><textarea id="uraian"></textarea><div class="err" data-for="uraian"></div></div>
+   <div class="span2"><label for="hasil">Hasil atau pembelajaran</label><textarea id="hasil"></textarea><div class="err" data-for="hasil"></div></div>
+   <div class="span2"><label for="kendala">Kendala</label><textarea id="kendala" placeholder="Isi jika ada, atau kosongkan"></textarea></div>
+   <div class="span2"><label for="rencana">Rencana tindak lanjut</label><textarea id="rencana" placeholder="Isi jika ada, atau kosongkan"></textarea></div>
+   <div class="span2 row">
+    <button class="btn" type="submit">Simpan jurnal</button>
+    <button class="btn light" type="button" id="btnBatal">Batal</button>
+   </div>
+  </form>
+ </div>
+</div>
+
+<div class="overlay" id="ovHapus">
+ <div class="modal small">
+  <h2>Hapus jurnal?</h2>
+  <p id="teksHapus"></p>
+  <div class="row">
+   <button class="btn danger" id="btnYaHapus" type="button">Ya, hapus</button>
+   <button class="btn light" id="btnTidak" type="button">Batal</button>
+  </div>
+ </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+ "use strict";
+ var KJ="jurnalPKL_RPL_jurnal", KI="jurnalPKL_RPL_identitas";
+ var $=function(id){return document.getElementById(id)};
+ var jurnal=[], identitas={}, editId=null, hapusId=null, tm;
+
+ function baca(k,def){try{var v=localStorage.getItem(k);return v===null?def:JSON.parse(v)}catch(e){return def}}
+ function tulis(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){toast("Penyimpanan browser tidak tersedia.",1);return false}}
+ function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+ function toast(t,bad){var e=$("toast");e.textContent=t;e.className="show"+(bad?" bad":"");clearTimeout(tm);tm=setTimeout(function(){e.className=""},2600)}
+ function tglIndo(s){var d=new Date(s+"T00:00:00");return isNaN(d)?s:d.toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}
+ function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+ function menit(a,b){var x=a.split(":"),y=b.split(":");return (+y[0]*60+ +y[1])-(+x[0]*60+ +x[1])}
+
+ function contoh(){
+  var n=new Date(),r=[],t=[
+   ["08:00","16:00","Pengenalan lingkungan kerja dan perkenalan dengan tim IT. Mempelajari alur pengelolaan website perusahaan.","Memahami struktur tim dan prosedur kerja di divisi IT.","Belum hafal nama alat dan istilah teknis.","Mencatat istilah baru dan bertanya kepada pembimbing."],
+   ["08:00","16:00","Membuat halaman beranda sederhana memakai HTML dan CSS untuk situs contoh perusahaan.","Latihan menyusun layout responsif dengan flexbox.","Tampilan di HP masih bergeser.","Memperbaiki media query dan menguji di beberapa ukuran layar."],
+   ["08:00","15:30","Mengisi data uji pada aplikasi internal dan mencatat bug yang ditemukan.","Belajar menulis laporan bug yang jelas dan mudah diulang.","","Menyusun daftar bug dalam satu tabel."],
+   ["08:00","16:00","Menginstal dan mengatur komputer klien baru serta mengecek koneksi jaringan lokal.","Mengetahui langkah dasar konfigurasi jaringan.","Kabel LAN ada yang rusak.","Membantu mengganti kabel dan menguji ulang."]
+  ];
+  t.forEach(function(x,i){var d=new Date(n);d.setDate(n.getDate()-(t.length-1-i));r.push({id:uid(),tgl:iso(d),jm:x[0],js:x[1],uraian:x[2],hasil:x[3],kendala:x[4],rencana:x[5]})});
+  return r;
+ }
+
+ function init(){
+  var j=baca(KJ,null);
+  if(j===null){jurnal=contoh();tulis(KJ,jurnal)}else{jurnal=Array.isArray(j)?j:[]}
+  var i=baca(KI,null);
+  if(i===null){identitas={nama:"Siswa Contoh",kelas:"XI RPL",instansi:"PT Contoh Teknologi Nusantara",pembimbing:"Bapak/Ibu Pembimbing Contoh",periode:"1 Juli 2026 - 30 September 2026"};tulis(KI,identitas)}else{identitas=i||{}}
+  ["nama","kelas","instansi","pembimbing","periode"].forEach(function(k){$(k).value=identitas[k]||""});
+  renderIdentitasCetak();render();
+ }
+
+ function setErr(id,msg){
+  var e=document.querySelector('.err[data-for="'+id+'"]');if(e)e.textContent=msg||"";
+  $(id).classList.toggle("invalid",!!msg);
+ }
+
+ function renderIdentitasCetak(){
+  var L=[["Nama siswa","nama"],["Kelas","kelas"],["Instansi PKL","instansi"],["Pembimbing","pembimbing"],["Periode PKL","periode"]];
+  $("idPrint").innerHTML=L.map(function(x){return "<tr><td>"+x[0]+"</td><td>: "+esc(identitas[x[1]]||"-")+"</td></tr>"}).join("");
+ }
+
+ $("formIdentitas").addEventListener("submit",function(e){
+  e.preventDefault();var ok=true,d={};
+  ["nama","kelas","instansi","pembimbing","periode"].forEach(function(k){
+   var v=$(k).value.trim();d[k]=v;
+   if(v.length<2){setErr(k,"Wajib diisi.");ok=false}else setErr(k,"");
+  });
+  if(!ok){toast("Lengkapi identitas terlebih dahulu.",1);return}
+  identitas=d;if(tulis(KI,d)){renderIdentitasCetak();toast("Identitas berhasil disimpan.")}
+ });
+
+ function tersaring(){
+  var q=$("cari").value.trim().toLowerCase(),a=$("dari").value,b=$("sampai").value;
+  return jurnal.filter(function(x){
+   if(a&&x.tgl<a)return false;
+   if(b&&x.tgl>b)return false;
+   if(q){var s=(x.uraian+" "+x.hasil+" "+x.kendala+" "+x.rencana+" "+tglIndo(x.tgl)).toLowerCase();if(s.indexOf(q)<0)return false}
+   return true;
+  }).sort(function(p,q2){return p.tgl===q2.tgl?(q2.jm>p.jm?1:-1):(q2.tgl>p.tgl?1:-1)});
+ }
+
+ function render(){
+  var hari={},mnt=0;
+  jurnal.forEach(function(x){hari[x.tgl]=1;var m=menit(x.jm,x.js);if(m>0)mnt+=m});
+  $("sTotal").textContent=jurnal.length;
+  $("sHari").textContent=Object.keys(hari).length;
+  $("sJam").textContent=(Math.round(mnt/6)/10).toString().replace(".",",");
+  var list=tersaring();
+  $("info").textContent=list.length===jurnal.length?("Menampilkan "+list.length+" jurnal."):("Menampilkan "+list.length+" dari "+jurnal.length+" jurnal.");
+  if(!list.length){
+   $("daftar").innerHTML='<div class="empty">'+(jurnal.length?"Tidak ada jurnal yang cocok dengan pencarian atau filter.":"Belum ada jurnal. Tekan tombol Tambah jurnal untuk mulai mencatat.")+"</div>";
+   return;
+  }
+  $("daftar").innerHTML=list.map(function(x){
+   return '<article class="entry"><h3>'+esc(tglIndo(x.tgl))+'</h3><div class="meta">Pukul '+esc(x.jm)+' - '+esc(x.js)+' WIB</div><dl style="margin:0">'
+   +'<dt>Uraian pekerjaan</dt><dd>'+esc(x.uraian)+'</dd>'
+   +'<dt>Hasil atau pembelajaran</dt><dd>'+esc(x.hasil)+'</dd>'
+   +'<dt>Kendala</dt><dd>'+esc(x.kendala||"-")+'</dd>'
+   +'<dt>Rencana tindak lanjut</dt><dd>'+esc(x.rencana||"-")+'</dd></dl>'
+   +'<div class="actions no-print"><button class="btn light sm" data-aksi="edit" data-id="'+x.id+'" type="button">Edit</button>'
+   +'<button class="btn danger sm" data-aksi="hapus" data-id="'+x.id+'" type="button">Hapus</button></div></article>';
+  }).join("");
+ }
+
+ function bukaForm(x){
+  editId=x?x.id:null;
+  $("judulForm").textContent=x?"Edit jurnal":"Tambah jurnal";
+  $("tgl").value=x?x.tgl:iso(new Date());
+  $("jm").value=x?x.jm:"08:00";
+  $("js").value=x?x.js:"16:00";
+  $("uraian").value=x?x.uraian:"";
+  $("hasil").value=x?x.hasil:"";
+  $("kendala").value=x?x.kendala:"";
+  $("rencana").value=x?x.rencana:"";
+  ["tgl","jm","js","uraian","hasil"].forEach(function(k){setErr(k,"")});
+  $("ovForm").classList.add("show");
+ }
+ function tutupForm(){$("ovForm").classList.remove("show")}
+
+ $("btnTambah").addEventListener("click",function(){bukaForm(null)});
+ $("btnBatal").addEventListener("click",tutupForm);
+
+ $("formJurnal").addEventListener("submit",function(e){
+  e.preventDefault();var ok=true;
+  var d={tgl:$("tgl").value,jm:$("jm").value,js:$("js").value,uraian:$("uraian").value.trim(),hasil:$("hasil").value.trim(),kendala:$("kendala").value.trim(),rencana:$("rencana").value.trim()};
+  function cek(k,salah,pesan){if(salah){setErr(k,pesan);ok=false}else setErr(k,"")}
+  cek("tgl",!d.tgl,"Pilih tanggal kegiatan.");
+  cek("jm",!d.jm,"Isi jam mulai.");
+  cek("js",!d.js||(d.jm&&d.js&&menit(d.jm,d.js)<=0),d.js?"Jam selesai harus setelah jam mulai.":"Isi jam selesai.");
+  cek("uraian",d.uraian.length<10,"Uraian minimal 10 karakter.");
+  cek("hasil",d.hasil.length<5,"Hasil atau pembelajaran minimal 5 karakter.");
+  if(!ok){toast("Periksa kembali isian yang berwarna merah.",1);return}
+  var baru=editId===null;
+  if(baru){d.id=uid();jurnal.push(d)}
+  else{jurnal=jurnal.map(function(x){return x.id===editId?Object.assign({},d,{id:editId}):x})}
+  if(tulis(KJ,jurnal)){tutupForm();render();toast(baru?"Jurnal berhasil ditambahkan.":"Perubahan jurnal berhasil disimpan.")}
+ });
+
+ $("daftar").addEventListener("click",function(e){
+  var b=e.target.closest("button[data-aksi]");if(!b)return;
+  var id=b.getAttribute("data-id"),x=jurnal.filter(function(j){return j.id===id})[0];
+  if(!x)return;
+  if(b.getAttribute("data-aksi")==="edit")bukaForm(x);
+  else{hapusId=id;$("teksHapus").textContent="Jurnal tanggal "+tglIndo(x.tgl)+" akan dihapus dan tidak bisa dikembalikan.";$("ovHapus").classList.add("show")}
+ });
+ $("btnTidak").addEventListener("click",function(){hapusId=null;$("ovHapus").classList.remove("show")});
+ $("btnYaHapus").addEventListener("click",function(){
+  jurnal=jurnal.filter(function(x){return x.id!==hapusId});hapusId=null;
+  $("ovHapus").classList.remove("show");
+  if(tulis(KJ,jurnal)){render();toast("Jurnal berhasil dihapus.")}
+ });
+
+ ["cari","dari","sampai"].forEach(function(id){$(id).addEventListener("input",render)});
+ $("btnReset").addEventListener("click",function(){$("cari").value="";$("dari").value="";$("sampai").value="";render()});
+ $("btnCetak").addEventListener("click",function(){
+  if(!jurnal.length){toast("Belum ada jurnal untuk dicetak.",1);return}
+  window.print();
+ });
+ [$("ovForm"),$("ovHapus")].forEach(function(o){o.addEventListener("click",function(e){if(e.target===o){o.classList.remove("show")}})});
+ document.addEventListener("keydown",function(e){if(e.key==="Escape"){tutupForm();$("ovHapus").classList.remove("show")}});
+
+ init();
+})();
+</script>
+</body>
+                                                                                                   </html>
